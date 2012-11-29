@@ -1,4 +1,6 @@
 *~
 *.exe
 *.swp
+_*.input
+_*.output
 submit.auth.yaml

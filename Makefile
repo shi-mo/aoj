@@ -1,5 +1,6 @@
 CFLAGS  := -g -Wall
 SRCS    := $(shell ls *.c)
+IDS     := $(patsubst %.c,%,$(SRCS))
 TARGETS := $(patsubst %.c,%.exe,$(SRCS))
 CLEAN	:= *~ */*~
 
@@ -11,6 +12,10 @@ build: $(TARGETS)
 .SUFFIXES: .c .exe
 .c.exe:
 	gcc $(CFLAGS) -o $@ $<
+
+.PHONY: test
+test: build test.sh
+	./test.sh $(IDS)
 
 .PHONY: clean
 clean:

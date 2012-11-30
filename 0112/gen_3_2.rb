@@ -1,4 +1,4 @@
-basename = '_3_2_value_bound_60_10000sets'
+basename = '_3_2_value_bound_60_10000people'
 
 n = 10000
 minutes = 60

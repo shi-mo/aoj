@@ -1,4 +1,4 @@
-basename = '_1_2_sets_bound_10000'
+basename = '_1_2_people_bound_10000'
 
 n = 10000
 

@@ -1,4 +1,4 @@
-basename = "1_1_atomic"
+basename = '_1_1_atomic'
 
 open("#{basename}.input", 'w') do |f|
   (0..9).each do |i|

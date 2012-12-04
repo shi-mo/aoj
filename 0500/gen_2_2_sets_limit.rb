@@ -1,5 +1,5 @@
 limit = 10000
-basename = '2_2_sets_limit'
+basename = '_2_2_sets_limit'
 
 open("#{basename}.input", 'w') do |f|
   f.puts limit.to_s

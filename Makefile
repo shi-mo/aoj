@@ -2,7 +2,7 @@ CFLAGS  := -g -Wall
 SRCS    := $(shell ls *.c)
 IDS     := $(patsubst %.c,%,$(SRCS))
 TARGETS := $(patsubst %.c,%.exe,$(SRCS))
-CLEAN	:= *~ */*~
+CLEAN	:= *~ */*~ */_*.input */_*.output
 
 all:	build
 

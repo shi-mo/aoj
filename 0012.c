@@ -19,6 +19,11 @@ det_for(double a, double b, double d, double e)
     return a*e - b*d;
 }
 
+/*
+ * Crossing point of 2 lines:
+ *   a*x + b*y = c
+ *   d*x + b*y = f
+ */
 void
 calc_cross_point(double a, double b, double c, double d, double e, double f, double *cxp, double *cyp)
 {

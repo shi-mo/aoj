@@ -8,8 +8,13 @@ calc_line_params(double x1, double y1, double x2, double y2, double *ap, double 
     *cp = y1*x2 - y2*x1;
 }
 
+/*
+ * Determinant for maxrix:
+ *   |a  b|
+ *   |d  e|
+ */
 double
-det_for(double a, double b, double c, double d, double e, double f)
+det_for(double a, double b, double d, double e)
 {
     return a*e - b*d;
 }
@@ -17,7 +22,7 @@ det_for(double a, double b, double c, double d, double e, double f)
 void
 calc_cross_point(double a, double b, double c, double d, double e, double f, double *cxp, double *cyp)
 {
-    double det = det_for(a, b, c, d, e, f);
+    double det = det_for(a, b, d, e);
     *cxp = (c*e - b*f) / det;
     *cyp = (a*f - c*d) / det;
 }
@@ -30,7 +35,7 @@ judge_cross_point_is_valid(double x1, double y1, double x2, double y2, double x3
         calc_line_params(x1, y1, x2, y2, &a, &b, &c);
         calc_line_params(x3, y3, xp, yp, &d, &e, &f);
 
-        if (!det_for(a, b, c, d, e, f)) return 0;
+        if (!det_for(a, b, d, e)) return 0;
         calc_cross_point(a, b, c, d, e, f, &cx, &cy);
 
         if ((x1 < cx) && (x2 < cx)) return 0;

@@ -27,17 +27,17 @@ map_freq_for_depth(FILE *fp, freq_t freq_for[], int depth_max)
     memset(freq_for, 0, (depth_max * sizeof(freq_for[0])));
 
     while (EOF != (c = fgetc(fp))) {
-	if ('(' == c) {
-	    freq_for[++depth]++;
-	    continue;
-	}
-	if (')' == c) {
-	    if (--depth < 0) break; /* reaches the end of tree */
-	    freq_for[depth]++;
-	    continue;
-	}
+        if ('(' == c) {
+            freq_for[++depth]++;
+            continue;
+        }
+        if (')' == c) {
+            if (--depth < 0) break; /* reaches the end of tree */
+            freq_for[depth]++;
+            continue;
+        }
         if ('\n' == c) break;
-	break; /* must not happen */
+        break; /* must not happen */
     }
 }
 
@@ -54,7 +54,7 @@ calc_num_omittable_substrings(freq_t freq_for[])
     unsigned long num_combinations = 0;
 
     for (i = 0; freq_for[i]; i++) {
-	num_combinations += combination2_of(freq_for[i]);
+        num_combinations += combination2_of(freq_for[i]);
     }
     return num_combinations;
 }

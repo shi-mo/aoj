@@ -38,7 +38,11 @@ for ID in $*; do
         TEST_NAME=`echo ${TEST_INPUT} | sed "s/^${DIR}\///" | sed "s/\.input$//"`
         TEST_OUTPUT=${DIR}/${TEST_NAME}.output
 
-        ${BIN} < ${TEST_INPUT} | diff -u ${TEST_OUTPUT} -
+        if [ -e ${TEST_OUTPUT} ]; then
+            ${BIN} < ${TEST_INPUT} | diff -u ${TEST_OUTPUT} -
+        else
+            ${BIN} < ${TEST_INPUT} >/dev/null
+        fi
         STATUS=$?
         if [ 0 -ne ${STATUS} ]; then
             echo "Test failed: ${TEST_NAME} (status ${STATUS})"

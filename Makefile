@@ -14,8 +14,8 @@ build: $(TARGETS)
 	gcc $(CFLAGS) -o $@ $<
 
 .PHONY: test
-test: build test.sh
-	./test.sh $(IDS)
+test: build test.bash
+	./test.bash $(IDS)
 
 .PHONY: clean
 clean:

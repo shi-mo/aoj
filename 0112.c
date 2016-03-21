@@ -15,15 +15,16 @@ read_data(FILE *fp, unsigned int n, unsigned int data[])
     return 0;
 }
 
+int compare(const void *a, const void *b) {
+    return *((unsigned int*)a)-*((unsigned int*)b);
+}
+
 unsigned long
 calc_total_wait(unsigned int n, unsigned int data[])
 {
     unsigned long total_wait = 0;
     int i;
 
-    int compare(const void *a, const void *b) {
-        return *((unsigned int*)a)-*((unsigned int*)b);
-    };
     qsort(data, n, sizeof(data[0]), compare);
     for (i = 0; i < (n-1); i++) {
         total_wait += data[i] * (n - (i+1));

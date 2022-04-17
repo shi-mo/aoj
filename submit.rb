@@ -1,6 +1,7 @@
 require 'yaml'
-require 'net/http'
+require 'json'
 require 'uri'
+require 'mechanize'
 
 def main
   check_argv!
@@ -25,20 +26,22 @@ def load_auth
 end
 
 def post_aoj(id, auth)
-  uri  = URI.parse('http://judge.u-aizu.ac.jp/onlinejudge/servlet/Submit')
-  data = post_data_for(id, auth)
-  res  = http_post(uri, data)
-  warn res
+  Mechanize.new do |agent|
+    header = {
+      'Content-Type' => 'application/json; charset=utf-8'
+    }
+
+    json_auth = JSON.generate(auth)
+    agent.post('https://judgeapi.u-aizu.ac.jp/session', json_auth, header)
+
+    json_answer = JSON.generate(post_data_for(id))
+    agent.post('https://judgeapi.u-aizu.ac.jp/submissions', json_answer, header)
+  end
 end
 
-def http_post(uri, data)
-  res = Net::HTTP.post_form(uri, data)
-  res.body
-end
-
-def post_data_for(id, auth)
-  data = auth.clone
-  data['problemNO']  = id
+def post_data_for(id)
+  data = {}
+  data['problemId']  = id
   data['language']   = 'C'
   data['sourceCode'] = load_code_for(id)
   data

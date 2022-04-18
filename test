@@ -1,0 +1,82 @@
+#!/bin/bash
+
+set -u
+
+if [ $# -lt 1 ]; then
+    echo "usage: $0 0001.exe 0002.rb d0003 ..." >&2
+    exit 1
+fi
+
+DIFF_FILE=_test.diff
+function main () {
+    echo -n '' > ${DIFF_FILE}
+    for TEST_TARGET in $*; do
+        PROBLEM_ID=`echo ${TEST_TARGET} | sed "s/\.exe$//" | sed "s/\.rb$//" | sed "s/^d//"`
+
+        if [ ! -e ${TEST_TARGET} ]; then
+            echo "${TEST_TARGET} does not exist." >&2
+            continue
+        fi
+        if [ ! -e ${PROBLEM_ID}/ ]; then
+            echo "${PROBLEM_ID} NO testcase." >&2
+            continue
+        fi
+
+        generate_testcases_for ${PROBLEM_ID}
+        run_test_for ${TEST_TARGET} ${PROBLEM_ID}
+    done
+}
+
+function generate_testcases_for () {
+    PROBLEM_ID=$1
+
+    (
+        cd ${PROBLEM_ID}
+
+        ls *.erb >/dev/null 2>&1
+        if [ 0 -eq $? ]; then
+            for ERB in *.erb; do
+                ERB_OUTPUT_FILE=_`echo ${ERB} | sed "s/\.erb$//"`
+                erb -T - ${ERB} > ${ERB_OUTPUT_FILE}
+            done
+        fi
+    )
+}
+
+function run_test_for () {
+    TEST_TARGET=$1
+    PROBLEM_ID=$2
+
+    RUNNER=./${TEST_TARGET}
+    if [[ "${TEST_TARGET}" =~ \.rb$ ]]; then
+        RUNNER="ruby -w ${TEST_TARGET}"
+    fi
+    echo -n "${TEST_TARGET} "
+    for TEST_INPUT in ${PROBLEM_ID}/*.in; do
+        run_testcase ${PROBLEM_ID} "${RUNNER}" ${TEST_INPUT}
+    done
+    echo ""
+}
+
+function run_testcase () {
+    PROBLEM_ID=$1
+    RUNNER="$2"
+    TEST_INPUT=$3
+
+    TEST_NAME=`echo ${TEST_INPUT} | sed "s/^${PROBLEM_ID}\///" | sed "s/\.in$//"`
+    TEST_OUTPUT=${PROBLEM_ID}/${TEST_NAME}.out
+
+    if [ -e ${TEST_OUTPUT} ]; then
+        ${RUNNER} < ${TEST_INPUT} | diff -u ${TEST_OUTPUT} - >> ${DIFF_FILE}
+    else
+        ${RUNNER} < ${TEST_INPUT} >/dev/null
+    fi
+    STATUS=$?
+    if [ 0 -ne ${STATUS} ]; then
+        echo "Test failed: ${TEST_NAME} (status ${STATUS})"
+    else
+        echo -n "."
+    fi
+}
+
+main $*

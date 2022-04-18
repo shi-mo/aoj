@@ -1,7 +1,10 @@
 *~
 *.exe
 *.swp
+_*.in
+_*.out
 _*.input
 _*.output
+_test.diff
 submit.auth.yaml
 /*.dSYM

@@ -2,7 +2,8 @@ CFLAGS  := -g -Wall
 SRCS    := $(shell ls *.c)
 IDS     := $(patsubst %.c,%,$(SRCS))
 TARGETS := $(patsubst %.c,%.exe,$(SRCS))
-CLEAN	:= *~ */*~ */_*.input */_*.output
+TEST_TARGETS := $(TARGETS) $(shell ls *.rb)
+CLEAN	:= *~ */*~ */_*.in */_*.out _test.diff
 
 all:	build
 
@@ -14,8 +15,8 @@ build: $(TARGETS)
 	gcc $(CFLAGS) -o $@ $<
 
 .PHONY: test
-test: build test.bash
-	./test.bash $(IDS)
+test: build
+	./test $(TEST_TARGETS)
 
 .PHONY: clean
 clean:

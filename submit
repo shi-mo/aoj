@@ -7,9 +7,9 @@ require 'mechanize'
 def main
   check_argv!
 
-  id = ARGV[0]
+  id, ext = ARGV[0].split('.')
   auth = load_auth
-  post_aoj(id, auth)
+  post_aoj(id, ext, auth)
 end
 
 def check_argv!
@@ -26,7 +26,7 @@ def load_auth
   YAML.load_file(yaml_path)
 end
 
-def post_aoj(id, auth)
+def post_aoj(id, ext, auth)
   Mechanize.new do |agent|
     header = {
       'Content-Type' => 'application/json; charset=utf-8'
@@ -35,22 +35,25 @@ def post_aoj(id, auth)
     json_auth = JSON.generate(auth)
     agent.post('https://judgeapi.u-aizu.ac.jp/session', json_auth, header)
 
-    json_answer = JSON.generate(post_data_for(id))
+    json_answer = JSON.generate(post_data_for(id, ext))
     agent.post('https://judgeapi.u-aizu.ac.jp/submissions', json_answer, header)
   end
 end
 
-def post_data_for(id)
+LANG = {
+  'c' => 'C',
+  'rb' => 'Ruby'
+}.freeze
+def post_data_for(id, ext)
   data = {}
   data['problemId']  = id
-  data['language']   = 'C'
-  data['sourceCode'] = load_code_for(id)
+  data['language']   = LANG[ext]
+  data['sourceCode'] = load_code_for(id, ext)
   data
 end
 
-def load_code_for(id)
-  ext = '.c'.freeze
-  File.binread("#{id}#{ext}")
+def load_code_for(id, ext)
+  File.binread("#{id}.#{ext}")
 end
 
 main

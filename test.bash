@@ -34,9 +34,9 @@ for ID in $*; do
         fi
     )
 
-    for TEST_INPUT in ${DIR}/*.input; do
-        TEST_NAME=`echo ${TEST_INPUT} | sed "s/^${DIR}\///" | sed "s/\.input$//"`
-        TEST_OUTPUT=${DIR}/${TEST_NAME}.output
+    for TEST_INPUT in ${DIR}/*.in; do
+        TEST_NAME=`echo ${TEST_INPUT} | sed "s/^${DIR}\///" | sed "s/\.in$//"`
+        TEST_OUTPUT=${DIR}/${TEST_NAME}.out
 
         if [ -e ${TEST_OUTPUT} ]; then
             ${BIN} < ${TEST_INPUT} | diff -u ${TEST_OUTPUT} -

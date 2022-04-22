@@ -18,27 +18,31 @@ def init_right_table
   table[1][3] = 5
   table[1][4] = 2
   table[1][5] = 4
-  table[2][1] = 4
+  table[2][1] = opposite(table[1][2])
   table[2][3] = 1
   table[2][4] = 6
   table[2][6] = 3
-  table[3][1] = 2
-  table[3][2] = 6
+  table[3][1] = opposite(table[1][3])
+  table[3][2] = opposite(table[2][3])
   table[3][5] = 1
   table[3][6] = 5
-  table[4][1] = 5
-  table[4][2] = 1
+  table[4][1] = opposite(table[1][4])
+  table[4][2] = opposite(table[2][4])
   table[4][5] = 6
   table[4][6] = 2
-  table[5][1] = 3
-  table[5][3] = 6
-  table[5][4] = 1
+  table[5][1] = opposite(table[1][5])
+  table[5][3] = opposite(table[3][5])
+  table[5][4] = opposite(table[4][5])
   table[5][6] = 4
-  table[6][2] = 4
-  table[6][3] = 2
-  table[6][4] = 5
-  table[6][5] = 3
+  table[6][2] = opposite(table[2][6])
+  table[6][3] = opposite(table[3][6])
+  table[6][4] = opposite(table[4][6])
+  table[6][5] = opposite(table[5][6])
   table
+end
+
+def opposite(label)
+  7 - label
 end
 
 main

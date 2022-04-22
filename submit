@@ -42,7 +42,8 @@ end
 
 LANG = {
   'c' => 'C',
-  'rb' => 'Ruby'
+  'rb' => 'Ruby',
+  'py' => 'Python3'
 }.freeze
 def post_data_for(id, ext)
   data = {}

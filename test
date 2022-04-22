@@ -11,7 +11,7 @@ DIFF_FILE=_test.diff
 function main () {
     echo -n '' > ${DIFF_FILE}
     for TEST_TARGET in $*; do
-        PROBLEM_ID=`echo ${TEST_TARGET} | sed "s/\.exe$//" | sed "s/\.rb$//" | sed "s/^d//"`
+        PROBLEM_ID=`echo ${TEST_TARGET} | sed "s/\.exe$//" | sed "s/\.rb$//" | sed "s/\.py$//" | sed "s/^d//"`
 
         if [ ! -e ${TEST_TARGET} ]; then
             echo "${TEST_TARGET} does not exist." >&2
@@ -50,6 +50,9 @@ function run_test_for () {
     RUNNER=./${TEST_TARGET}
     if [[ "${TEST_TARGET}" =~ \.rb$ ]]; then
         RUNNER="ruby -w ${TEST_TARGET}"
+    fi
+    if [[ "${TEST_TARGET}" =~ \.py$ ]]; then
+        RUNNER="python -Walways ${TEST_TARGET}"
     fi
     echo -n "${TEST_TARGET} "
     for TEST_INPUT in ${PROBLEM_ID}/*.in; do

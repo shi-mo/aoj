@@ -1,42 +1,46 @@
+TOP = 0
+FRONT = 1
+RIGHT = 2
+
 def main
-  face_ids = [nil] + gets.chomp.split
+  faces = [nil] + gets.chomp.split
   commands = gets.chomp.split(//)
 
-  # top, S, E (, N, W, bottom)
-  faces = [1, 2, 3]
+  # top, front, right
+  dice = [1, 2, 3]
   commands.each do |cmd|
-    operate(faces, cmd)
+    operate(dice, cmd)
   end
-  puts face_ids[faces[0]]
+  puts faces[dice[TOP]]
 end
 
-def operate(faces, cmd)
+def operate(dice, cmd)
   case cmd
   when 'N'
-    top = faces[1]
-    s = opposite(faces[0])
-    faces[0] = top
-    faces[1] = s
+    top = dice[FRONT]
+    front = opposite(dice[TOP])
+    dice[TOP] = top
+    dice[FRONT] = front
   when 'E'
-    top = opposite(faces[2])
-    e = faces[0]
-    faces[0] = top
-    faces[2] = e
+    top = opposite(dice[RIGHT])
+    right = dice[TOP]
+    dice[TOP] = top
+    dice[RIGHT] = right 
   when 'S'
-    top = opposite(faces[1])
-    s = faces[0]
-    faces[0] = top
-    faces[1] = s
+    top = opposite(dice[FRONT])
+    front = dice[TOP]
+    dice[TOP] = top
+    dice[FRONT] = front
   else # W
-    top = faces[2]
-    e = opposite(faces[0])
-    faces[0] = top
-    faces[2] = e
+    top = dice[RIGHT]
+    right = opposite(dice[TOP])
+    dice[TOP] = top
+    dice[RIGHT] = right
   end
 end
 
-def opposite(face)
-  7 - face
+def opposite(label)
+  7 - label
 end
 
 main()

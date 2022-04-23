@@ -59,7 +59,6 @@ function run_test_for () {
         run_testcase ${PROBLEM_ID} "${RUNNER}" ${TEST_INPUT}
     done
     echo ""
-    cat ${DIFF_FILE}
 }
 
 function run_testcase () {

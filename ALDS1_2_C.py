@@ -28,13 +28,11 @@ def selection_sort(A: "List[int]"):
 N = int(sys.stdin.readline())
 A = [card(w) for w in sys.stdin.readline().split()]
 A1 = copy.deepcopy(A)
-A2 = copy.deepcopy(A)
-A.sort(key = lambda ai: ai['value'])
 
-bubble_sort(A1)
+bubble_sort(A)
+print(' '.join([ai['suit']+str(ai['value']) for ai in A]))
+print('Stable')
+
+selection_sort(A1)
 print(' '.join([ai['suit']+str(ai['value']) for ai in A1]))
 print('Stable' if A1 == A else 'Not stable')
-
-selection_sort(A2)
-print(' '.join([ai['suit']+str(ai['value']) for ai in A2]))
-print('Stable' if A2 == A else 'Not stable')

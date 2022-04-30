@@ -1,0 +1,4 @@
+<%= (1..9).to_a.map{|i| %w{D C H S}.map{|s| "#{s}#{i}" } }.inject(:+).join(' ') %>
+Stable
+D1 C1 H1 S1 D2 C2 H2 S2 C3 H3 D3 S3 C4 D4 H4 S4 C5 H5 S5 D5 H6 C6 S6 D6 D7 S7 C7 H7 S8 C8 D8 H8 D9 C9 H9 S9
+Not stable

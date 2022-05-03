@@ -43,5 +43,4 @@ for _ in range(MAX_INPUT_LENGTH):
 
 l = [area for c,l,area in (finished+stack) if '_' == c and 0 < area]
 print(sum(l))
-print(len(l), end=(' ' if 0 < len(l) else ''))
-print(*l)
+print(len(l), *l)

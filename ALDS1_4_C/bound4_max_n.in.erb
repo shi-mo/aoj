@@ -1,0 +1,5 @@
+1000000
+<% srand(20220505); s = 'ACGT'.freeze -%>
+<% 1000000.times do -%>
+insert <%= 12.times.map{ s[rand(4)] }.join('') %>
+<% end -%>

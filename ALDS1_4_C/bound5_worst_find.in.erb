@@ -1,0 +1,10 @@
+1000000
+<% srand(20220505); c = 'ACGT'.freeze; a = [] -%>
+<% 900000.times do |i| -%>
+<% s = 12.times.map{ c[rand(4)] }.join('') -%>
+<% if 800000 <= i; a << s; end -%>
+insert <%= s %>
+<% end -%>
+<% 100000.times do -%>
+find <%= a.pop %>
+<% end -%>

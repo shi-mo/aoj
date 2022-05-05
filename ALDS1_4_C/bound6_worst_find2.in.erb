@@ -1,0 +1,7 @@
+1000000
+<% srand(20220505); c = 'ACGT'.freeze; s = nil -%>
+<% 999999.times do |i| -%>
+<% s = 12.times.map{ c[rand(4)] }.join('') -%>
+insert <%= s %>
+<% end -%>
+find <%= s %>

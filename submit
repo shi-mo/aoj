@@ -42,6 +42,7 @@ end
 
 LANG = {
   'c' => 'C',
+  'cpp' => 'C++17',
   'rb' => 'Ruby',
   'py' => 'Python3'
 }.freeze

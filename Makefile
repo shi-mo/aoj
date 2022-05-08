@@ -1,4 +1,5 @@
-CFLAGS  := -g -Wall
+CFLAGS   := -g -Wall
+CPPFLAGS := -g -Wall -std=c++17
 SRCS    := $(shell ls *.c)
 IDS     := $(patsubst %.c,%,$(SRCS))
 TARGETS := $(patsubst %.c,%.exe,$(SRCS))
@@ -13,6 +14,10 @@ build: $(TARGETS)
 .SUFFIXES: .c .exe
 .c.exe:
 	gcc $(CFLAGS) -o $@ $<
+
+.SUFFIXES: .cpp .exe
+.cpp.exe:
+	g++ $(CPPFLAGS) -o $@ $<
 
 .PHONY: test
 test: build

@@ -8,8 +8,10 @@ if [ $# -lt 1 ]; then
 fi
 
 DIFF_FILE=_test.diff
+ERR_FILE=_test.err
 function main () {
     echo -n '' > ${DIFF_FILE}
+    echo -n '' > ${ERR_FILE}
     for TEST_TARGET in $*; do
         PROBLEM_ID=`echo ${TEST_TARGET} | sed "s/\.exe$//" | sed "s/\.rb$//" | sed "s/\.py$//" | sed "s/^d//"`
 
@@ -69,13 +71,19 @@ function run_testcase () {
     TEST_NAME=`echo ${TEST_INPUT} | sed "s/^${PROBLEM_ID}\///" | sed "s/\.in$//"`
     TEST_OUTPUT=${PROBLEM_ID}/${TEST_NAME}.out
 
+    STATUS=0
+    RESULT=0
     if [ -e ${TEST_OUTPUT} ]; then
-        ${RUNNER} < ${TEST_INPUT} | diff -u ${TEST_OUTPUT} - >> ${DIFF_FILE}
+	${RUNNER} < ${TEST_INPUT} 2>> ${ERR_FILE} | diff -u ${TEST_OUTPUT} - >> ${DIFF_FILE}
+	PIPE_STATUS=(${PIPESTATUS[@]})
+	STATUS=${PIPE_STATUS[0]}
+	RESULT=${PIPE_STATUS[1]}
     else
-        ${RUNNER} < ${TEST_INPUT} >/dev/null
+	${RUNNER} < ${TEST_INPUT} >/dev/null 2>>${ERR_FILE}
+        STATUS=$?
+	RESULT=${STATUS}
     fi
-    STATUS=$?
-    if [ 0 -ne ${STATUS} ]; then
+    if [ 0 -ne ${STATUS} ] || [ 0 -ne ${RESULT} ]; then
         echo "Test failed: ${TEST_NAME} (status ${STATUS})"
     else
         echo -n "."

@@ -6,5 +6,6 @@ _*.out
 _*.input
 _*.output
 _test.diff
+_test.err
 submit.auth.yaml
 /*.dSYM

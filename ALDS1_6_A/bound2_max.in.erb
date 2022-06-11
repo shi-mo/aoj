@@ -1,0 +1,3 @@
+<% M = 200; Am = 10000 -%>
+<%= M*Am %>
+<%= (1..Am).to_a.reverse.map{|v| [v] * M }.flatten.join(' ') %>

@@ -9,17 +9,16 @@ def next_of(a: list, desc: bool):
     for j in reversed(range(1,n)):
         if escape: break
         for i in reversed(range(0,j)):
-            v = max(p[i+1:n])
+            v = max(p[i+1:])
             if p[i] > v: continue
 
-            b = list(sorted(p[i:n].copy()))
+            b = list(sorted(p[i:].copy()))
             idx = b.index(p[i])
             if (len(b)-1) <= idx: continue
 
             p[i] = b[idx+1]
             b.remove(b[idx+1])
-            if (i+1) < n:
-                p[i+1:n] = sorted(b)
+            p[i+1:] = sorted(b)
             escape = True
             break
 

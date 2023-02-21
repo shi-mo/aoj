@@ -1,6 +1,6 @@
-n = int(input())
-a = [int(x) for x in input().split()]
-m = int(input())
-b = [int(x) for x in input().split()]
+_ = input()
+a = set(input().split())
+_ = input()
+b = set(input().split())
 
-print(1 if set(b) <= set(a) else 0)
+print(1 if b <= a else 0)

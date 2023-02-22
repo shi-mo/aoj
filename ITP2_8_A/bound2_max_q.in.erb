@@ -1,0 +1,10 @@
+200000
+<%- s = ('a'..'z').to_a.slice(0,10) -%>
+<% 2.times do |j| -%>
+  <%- 1.upto(50000) do |i| -%>
+0 <%= i.to_s.each_char.map{|d| s[d.to_i] }.join('') %> <%= i+j %>
+  <%- end -%>
+  <%- 1.upto(50000) do |i| -%>
+1 <%= i.to_s.each_char.map{|d| s[d.to_i] }.join('') %>
+  <%- end -%>
+<% end -%>

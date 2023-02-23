@@ -14,7 +14,7 @@ for _ in range(q):
     elif 2 == op:
         st &= ~(1<<i)
     elif 3 == op:
-        st = (st & ~(1<<i)) | (~(st & (1<<i)) & (1<<i))
+        st ^= (1<<i)
     elif 4 == op:
         print(1 if st == b64 else 0)
     elif 5 == op:

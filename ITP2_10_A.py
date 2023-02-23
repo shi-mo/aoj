@@ -1,7 +1,5 @@
 x = int(input())
 
 b32 = 0xffffffff
-print(format(x & b32, '032b'))
-print(format(~x & b32, '032b'))
-print(format(x<<1 & b32, '032b'))
-print(format(x>>1 & b32, '032b'))
+for a in [x, ~x, x<<1, x>>1]:
+    print(format(a & b32, '032b'))

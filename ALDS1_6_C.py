@@ -1,32 +1,33 @@
-from collections import deque
-
 n = int(input())
-a,b = [],[]
+a = []
 for i in range(n):
     s,v = input().split()
-    a.append([s, int(v)])
-    b.append([s, int(v), i])
+    a.append([s, int(v), i])
+
+def partition(a: list, p: int, r: int, cmp):
+    x = a[r]
+    i = p-1
+    for j in range(p,r):
+        if cmp(x, a[j]): continue
+        i += 1
+        a[i],a[j] = a[j],a[i]
+    a[i+1],a[r] = a[r],a[i+1]
+    return i+1
 
 def qsort(a: list, p: int, r: int, cmp):
-    stack = deque()
-    stack.append([p,r])
-    while stack:
-        b,e = stack.pop()
-        if e <= b: continue
-        x = a[e]
-        i = b-1
-        for j in range(b,e):
-            if cmp(x, a[j]): continue
-            i += 1
-            a[i],a[j] = a[j],a[i]
-        a[i+1],a[e] = a[e],a[i+1]
-        stack.append([i+2,e])
-        stack.append([b,i])
+    if r <= p: return
+    q = partition(a, p, r, cmp)
+    qsort(a, p, q-1, cmp)
+    qsort(a, q+1, r, cmp)
+
+def is_stable(a: list):
+    for i in range(len(a)-1):
+        if a[i][1] != a[i+1][1]: continue
+        if a[i][2] > a[i+1][2]: return False
+    return True
 
 qsort(a, 0, n-1, lambda x,y: x[1] < y[1])
-qsort(b, 0, n-1, lambda x,y: (x[1]*n + x[2]) < (y[1]*n + y[2]))
-ast = [x[0:2] for x in b]
 
-print('Stable' if a == ast else 'Not stable')
-for s,v in a:
+print('Stable' if is_stable(a) else 'Not stable')
+for s,v,_ in a:
     print(f'{s:s} {v:d}')

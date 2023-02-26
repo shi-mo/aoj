@@ -5,6 +5,9 @@ class Node:
         self.lchild = None
         self.rsibling = None
 
+    def parent_id(self):
+        return self.parent.node_id if self.parent else -1
+
     def type(self):
         if not self.parent: return 'root'
         if not self.lchild: return 'leaf'
@@ -39,7 +42,6 @@ for _ in range(n):
         if i < k-1: child.rsibling = nodes[c[i+1]]
 
 for nd in nodes:
-    pid = nd.parent.node_id if nd.parent else -1
     cl = ', '.join([str(id) for id in nd.children()])
-    print(f'node {nd.node_id:d}: parent = {pid:d}, ' +
+    print(f'node {nd.node_id:d}: parent = {nd.parent_id():d}, ' +
         f'depth = {nd.depth():d}, {nd.type():s}, [{cl:s}]')

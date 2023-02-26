@@ -1,6 +1,6 @@
 class Node:
     def __init__(self,id):
-        self.id = id
+        self.node_id = id
         self.parent = None
         self.lchild = None
         self.rsibling = None
@@ -22,7 +22,7 @@ class Node:
         l = []
         nd = self.lchild
         while nd:
-            l.append(nd.id)
+            l.append(nd.node_id)
             nd = nd.rsibling
         return l
 
@@ -39,7 +39,7 @@ for _ in range(n):
         if i < k-1: child.rsibling = nodes[c[i+1]]
 
 for nd in nodes:
-    pid = nd.parent.id if nd.parent else -1
+    pid = nd.parent.node_id if nd.parent else -1
     cl = ', '.join([str(id) for id in nd.children()])
-    print(f'node {nd.id:d}: parent = {pid:d}, ' +
+    print(f'node {nd.node_id:d}: parent = {pid:d}, ' +
         f'depth = {nd.depth():d}, {nd.type():s}, [{cl:s}]')

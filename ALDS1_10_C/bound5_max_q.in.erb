@@ -1,0 +1,6 @@
+150
+<% srand(20230307) -%>
+<% c = ('a'..'z').map.to_a -%>
+<% (150*2).times do -%>
+<%= 99.times.map{ c[rand(26)] }.join('') %>
+<% end -%>

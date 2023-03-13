@@ -1,10 +1,16 @@
 CFLAGS   := -g -Wall
 CPPFLAGS := -g -Wall -std=c++17
 SRCS    := $(shell ls *.c)
-IDS     := $(patsubst %.c,%,$(SRCS))
-TARGETS := $(patsubst %.c,%.exe,$(SRCS))
+
+DFLAGS   := -de -w
+DSRCS    := $(shell ls *.d)
+DTARGETS := $(patsubst %.d,%,$(DSRCS))
+
+CTARGETS := $(patsubst %.c,%.exe,$(SRCS))
+TARGETS  := $(CTARGETS) $(DTARGETS)
 TEST_TARGETS := $(TARGETS) $(shell ls *.rb)
 CLEAN	:= *~ */*~ */_*.in */_*.out _test.diff
+CLOBBER	:= *.dSYM
 
 all:	build
 
@@ -18,6 +24,11 @@ build: $(TARGETS)
 .SUFFIXES: .cpp .exe
 .cpp.exe:
 	g++ $(CPPFLAGS) -o $@ $<
+
+.SUFFIXES: .d
+.d.exe:
+	dmd $(DFLAGS) $< -of$@
+	rm $*.o
 
 .PHONY: test
 test: build

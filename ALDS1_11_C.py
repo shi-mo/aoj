@@ -1,20 +1,18 @@
-class Bfs:
-    def __init__(self, n, a):
-        self.n = n
-        self.adj = a
-        self.d = [-1]*n
+from collections import deque
 
-    def bfs(self):
-        self.d[0] = 0
-        for d in range(n):
-            for i,di in enumerate(self.d):
-                if di != d:
-                    continue
-
-                for v in self.adj[i]:
-                    if 0 <= self.d[v-1]:
-                        continue
-                    self.d[v-1] = d+1
+def bfs(n, adj):
+    d = [-1]*n
+    d[0] = 0
+    que = deque([1])
+    while que:
+        v = que.popleft()
+        dist = d[v-1]
+        for u in adj[v-1]:
+            if -1 < d[u-1]:
+                continue
+            d[u-1] = dist+1
+            que.append(u)
+    return d
 
 n = int(input())
 
@@ -23,9 +21,6 @@ for _ in range(n):
     u,k,*v = [int(x) for x in input().split()]
     a[u-1] = v
 
-bfs = Bfs(n, a)
-bfs.bfs()
-
-for i in range(n):
-    u = i+1
-    print(*[u,bfs.d[i]])
+d = bfs(n, a)
+for i,di in enumerate(d):
+    print(i+1, di)

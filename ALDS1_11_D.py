@@ -22,7 +22,6 @@ for s in range(n):
             roots[u] = s
             que.append(u)
 
-
 q = int(input())
 for _ in range(q):
     s, t = [int(x) for x in input().split()]

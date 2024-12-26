@@ -41,3 +41,7 @@ clean:
 .PHONY: clobber
 clobber: clean
 	rm -f $(TARGETS)
+
+.PHONY: init-auth
+init-auth:
+	./gen_pem_keypair.sh && ./encrypt_save_auth_yaml.sh

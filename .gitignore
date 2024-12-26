@@ -5,7 +5,8 @@ _*.in
 _*.out
 _*.input
 _*.output
-_test.diff
-_test.err
-submit.auth.yaml
+/_test.diff
+/_test.err
 /*.dSYM
+/submit.auth.yaml.enc
+/symmetric.key.enc

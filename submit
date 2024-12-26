@@ -20,10 +20,7 @@ def check_argv!
 end
 
 def load_auth
-  yaml_name = 'submit.auth.yaml'.freeze
-  yaml_path = File.join(File.dirname(File.expand_path(__FILE__)),
-                        yaml_name)
-  YAML.load_file(yaml_path)
+  YAML.load_file(`#{File.dirname(__FILE__)}/decrypt_auth_yaml.sh`)
 end
 
 def post_aoj(id, ext, auth)

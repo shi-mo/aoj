@@ -12,7 +12,9 @@ RUN chmod u=rwx,g=rx,o=rx /workspace
 
 # Basic C/C++ environment
 RUN apt-get update \
- && apt-get install -y g++ \
+ && apt-get install -y \
+    g++ \
+    vim \
  && rm -rf /var/lib/apt/lists/*
 
 # Python environment

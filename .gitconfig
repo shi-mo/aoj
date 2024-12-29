@@ -1,0 +1,5 @@
+[alias]
+	lo = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=format-local:'%Y/%m/%d %H:%M:%S'
+	st = status
+	cm = commit -m
+	lo3 = lo -n 3

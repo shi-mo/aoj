@@ -1,0 +1,17 @@
+{
+  "name": "shi-mo/aoj project Dev Container",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": ".."
+  },
+  "workspaceMount": "source=aoj-workspace,target=/workspace,type=volume",
+  "workspaceFolder": "/workspace/aoj",
+  "customizations": {
+    "vscode": {
+        "settings": {
+            "terminal.integrated.defaultProfile.linux": "bash"
+        }
+    }
+  },
+  "postCreateCommand": "git clone https://github.com/shi-mo/aoj /workspace/aoj || true"
+}

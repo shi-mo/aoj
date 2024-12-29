@@ -14,7 +14,6 @@ RUN chmod u=rwx,g=rx,o=rx /workspace
 RUN apt-get update \
  && apt-get install -y \
     g++ \
-    vim \
  && rm -rf /var/lib/apt/lists/*
 
 # Python environment
@@ -39,11 +38,5 @@ RUN wget $URI_D_APT_REPOS -O /etc/apt/sources.list.d/d-apt.list \
     dmd-doc
 
 USER dev
-RUN git clone https://github.com/shi-mo/aoj
-RUN git config --global alias.lo "log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=format-local:'%Y/%m/%d %H:%M:%S'" \
- && git config --global alias.lo3 "lo -n 3" \
- && git config --global alias.st "status" \
- && git config --global alias.cm "commit -m"
-WORKDIR /workspace/aoj
 
- CMD [ "/bin/bash" ]
+CMD [ "/bin/bash" ]

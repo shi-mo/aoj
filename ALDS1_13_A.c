@@ -37,34 +37,24 @@ load_Qs(uint64_t *board, uint64_t *used)
 }
 
 int
-search_ans(int nQ, int r, uint64_t *board, uint64_t *used)
+search_ans(int r, uint64_t *board, uint64_t *used)
 {
     uint64_t tmp_bd = *board;
     uint64_t tmp_used = *used;
 
-    if (nQ < 1 || 8 < nQ) {
-        fprintf(stderr, "BUG: must not happen");
-        return -1;
-    }
-    if (8 == nQ) return 0;
-
-    if (8 <= r) return -1;
+    if (8 == r) return 0;
     if (used_r(*used, r)) {
-        return search_ans(nQ, r+1, board, used);
+        return search_ans(r+1, board, used);
     }
     
     for (int c = 0; c < 8; c++) {
-        if (used_c(*used, c)) continue;
-        if (used_updown(*used, r, c)) continue;
+        if (used_c(*used, c) || used_updown(*used, r, c)) continue;
 
         bd_place(*board, r, c);
         use_at(*used, r, c);
-        if (search_ans(nQ+1, r+1, board, used)) {
-            *board = tmp_bd;
-            *used = tmp_used;
-            continue;
-        }
-        return 0;
+        if (!search_ans(r+1, board, used)) return 0;
+        *board = tmp_bd;
+        *used = tmp_used;
     }
     return -1;
 }
@@ -74,7 +64,7 @@ print_ans(uint64_t *board)
 {
     for (int r = 0; r < 8; r++) {
         for (int c = 0; c < 8; c++) {
-            printf(bd_test(*board, r, c) ? "Q" : "." );
+            putchar(bd_test(*board, r, c) ? 'Q' : '.' );
         }
         puts("");
     }
@@ -87,11 +77,11 @@ main(int argc, char *argv[])
     uint64_t board = 0;
     uint64_t used  = 0;
 
-    if (EOF == scanf("%d\n", &n)) return -1;
+    if (1 != scanf("%d\n", &n)) return -1;
     if ((n <= 0) || (8 < n)) return -1;
 
     if (load_Qs(&board, &used)) return -1;
-    if (search_ans(n, 0, &board, &used)) return -1;
+    if (search_ans(0, &board, &used)) return -1;
 
     print_ans(&board);
     return 0;

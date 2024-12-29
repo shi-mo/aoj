@@ -4,12 +4,13 @@
     "dockerfile": "Dockerfile",
     "context": ".."
   },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
   "customizations": {
     "vscode": {
         "settings": {
             "terminal.integrated.defaultProfile.linux": "bash"
         }
     }
-  },
-  "postCreateCommand": "git clone https://github.com/shi-mo/aoj /workspace/aoj || true"
+  }
 }

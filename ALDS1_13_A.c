@@ -44,11 +44,11 @@ search_ans(int nQ, int r, uint64_t *board, uint64_t *used)
 
     if (nQ < 1 || 8 < nQ) {
         fprintf(stderr, "BUG: must not happen");
-        return 1;
+        return -1;
     }
     if (8 == nQ) return 0;
 
-    if (8 <= r) return 1;
+    if (8 <= r) return -1;
     if (used_r(*used, r)) {
         return search_ans(nQ, r+1, board, used);
     }
@@ -66,7 +66,7 @@ search_ans(int nQ, int r, uint64_t *board, uint64_t *used)
         }
         return 0;
     }
-    return 1;
+    return -1;
 }
 
 void
@@ -78,7 +78,6 @@ print_ans(uint64_t *board)
         }
         puts("");
     }
-    return;
 }
 
 int
@@ -88,11 +87,11 @@ main(int argc, char *argv[])
     uint64_t board = 0;
     uint64_t used  = 0;
 
-    if (EOF == scanf("%d\n", &n)) return 1;
-    if ((n <= 0) || (8 < n)) return 1;
+    if (EOF == scanf("%d\n", &n)) return -1;
+    if ((n <= 0) || (8 < n)) return -1;
 
-    if (load_Qs(&board, &used)) return 1;
-    if (search_ans(n, 0, &board, &used)) return 1;
+    if (load_Qs(&board, &used)) return -1;
+    if (search_ans(n, 0, &board, &used)) return -1;
 
     print_ans(&board);
     return 0;

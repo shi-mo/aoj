@@ -5,7 +5,7 @@
     "context": ".."
   },
   "workspaceMount": "source=aoj-workspace,target=/workspace,type=volume",
-  "workspaceFolder": "/workspace/aoj",
+  "workspaceFolder": "/workspace",
   "customizations": {
     "vscode": {
         "settings": {

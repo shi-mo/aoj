@@ -3,8 +3,9 @@
 # Enhanced safety: exit on errors, unset variables, and pipeline failures
 set -euo pipefail
 
-ENCRYPTED_YAML_FILE="submit.auth.yaml.enc"
-ENCRYPTED_SYMMETRIC_KEY_FILE="symmetric.key.enc"
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+ENCRYPTED_YAML_FILE="$SCRIPT_DIR/submit.auth.yaml.enc"
+ENCRYPTED_SYMMETRIC_KEY_FILE="$SCRIPT_DIR/symmetric.key.enc"
 
 PRIVATE_KEY_PATH="$HOME/.ssh/id_rsa-aoj"
 

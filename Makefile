@@ -44,4 +44,4 @@ clobber: clean
 
 .PHONY: init-auth
 init-auth:
-	./gen_pem_keypair.sh && ./encrypt_save_auth_yaml.sh
+	.auth/gen_pem_keypair.sh && .auth/encrypt_save_auth_yaml.sh

@@ -8,5 +8,5 @@ _*.output
 /_test.diff
 /_test.err
 /*.dSYM
-/submit.auth.yaml.enc
-/symmetric.key.enc
+/.auth/submit.auth.yaml.enc
+/.auth/symmetric.key.enc

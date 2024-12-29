@@ -28,7 +28,7 @@ def check_argv():
         sys.exit(1)
 
 def load_auth():
-    result = subprocess.run(['bash', './decrypt_auth_yaml.sh'],
+    result = subprocess.run(['bash', './.auth/decrypt_auth_yaml.sh'],
                             capture_output=True, text=True)
     if 0 != result.returncode:
         stderr.write(f'Error executing bash script: {result.stderr}\n')

@@ -1,9 +1,8 @@
 {
   "name": "shi-mo/aoj project Dev Container",
   "build": {
-    "dockerfile": "../Dockerfile.dev",
-    "context": "..",
-    "target": "aoj-dev"
+    "dockerfile": "Dockerfile",
+    "context": ".."
   },
   "customizations": {
     "vscode": {

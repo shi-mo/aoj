@@ -28,7 +28,6 @@ def post_aoj(id, ext, auth)
     header = {
       'Content-Type' => 'application/json; charset=utf-8'
     }
-p auth
     json_auth = JSON.pretty_generate(auth)
     agent.post('https://judgeapi.u-aizu.ac.jp/session', json_auth, header)
 

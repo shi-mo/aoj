@@ -10,6 +10,12 @@ RUN useradd -ms /bin/bash dev
 RUN chown -R dev:dev /workspace
 RUN chmod u=rwx,g=rx,o=rx /workspace
 
+# Basic development tools
+RUN apt-get update \
+ && apt-get install -y \
+    vim \
+ && rm -rf /var/lib/apt/lists/*
+
 # Basic C/C++ environment
 RUN apt-get update \
  && apt-get install -y \

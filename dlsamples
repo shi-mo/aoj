@@ -20,7 +20,7 @@ end
 def get_samples_to_files(id)
   samples = get_samples(id)
 
-  dir = "#{__dir__}/#{id}"
+  dir = "#{Dir.pwd}/#{id}"
   FileUtils.mkdir(dir) unless File.exist?(dir)
 
   samples.each do |sample|

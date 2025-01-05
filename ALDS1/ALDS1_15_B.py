@@ -29,4 +29,5 @@ def order_items(n, vw):
         items.append((vpw, vi, wi))
     items.sort(reverse=True)
     return items
+
 main()

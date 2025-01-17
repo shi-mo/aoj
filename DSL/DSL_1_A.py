@@ -1,7 +1,7 @@
 class UnionFindTree:
-    def __init__(self, N):
-        self.parent_of = [0] * N
-        for i in range(N):
+    def __init__(self, n):
+        self.parent_of = [0] * n
+        for i in range(n):
             self.parent_of[i] = i
 
     def root_of(self, x):
